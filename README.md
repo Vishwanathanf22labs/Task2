@@ -23,6 +23,8 @@ Axios (for API requests)
 JSON file (tasks.json) for data persistence
 
 📁 Project Structure
+<pre>
+  ```
 task-management-app/
 ├── backend/
 │   ├── server.js       # Node.js/Express server
@@ -36,7 +38,8 @@ task-management-app/
 │   ├── App.jsx         # Main app with routing
 │   ├── main.jsx        # React root entry
 ├── package.json        # Project dependencies
-
+```
+  </pre>
 📦 How to Run
 
 Clone this repo:
@@ -51,8 +54,6 @@ For the frontend:npm install
 
 For the backend (in the backend folder, if structured separately):cd backend
 npm install
-
-
 
 
 Start the backend server:
@@ -76,7 +77,6 @@ Access the app:
 Open your browser and navigate to http://localhost:5173 (or the port shown in the terminal).
 
 
-
 💡 Future Improvements
 
 Add user authentication for secure task management.
@@ -84,4 +84,3 @@ Connect to a backend database (e.g., MongoDB, Firebase) for scalable data storag
 Implement notifications or reminders for task due dates.
 Enhance UI with animations or a dark mode option.
 Add task categories or priority levels.
-
