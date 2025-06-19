@@ -40,7 +40,7 @@ const Add = () => {
 
   return (
     <div className="container mx-auto p-6 max-w-lg">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Add New Task</h1>
+      <h1 className="text-3xl font-bold text-black-800 mb-6">Add New Task</h1>
       <button
         onClick={handleBack}
         className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-300 transition mb-4 cursor-pointer"

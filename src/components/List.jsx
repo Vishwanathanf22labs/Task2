@@ -20,7 +20,6 @@ const List = () => {
 
   const handleAddTask = () => navigate("/add");
   const handleEdit = (id) => navigate(`/edit/${id}`);
-
   const handleDelete = (id) => {
     const updatedTasks = tasks.filter((task) => task.id !== id);
     setTasks(updatedTasks);
@@ -42,7 +41,7 @@ const List = () => {
 
       <button
         onClick={handleAddTask}
-        className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition mb-6"
+        className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-300 transition mb-6 cursor-pointer"
       >
         Add Task
       </button>
@@ -59,12 +58,12 @@ const List = () => {
           type="date"
           value={filterDate}
           onChange={(e) => setFilterDate(e.target.value)}
-          className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
         />
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
         >
           <option value="">All Status</option>
           <option value="Pending">Pending</option>
@@ -72,64 +71,56 @@ const List = () => {
         </select>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse bg-white shadow-md rounded-lg">
-          <thead>
-            <tr className="bg-gray-00">
-              <th className="border px-4 py-2 text-left">Title</th>
-              <th className="border px-4 py-2 text-left">Description</th>
-              <th className="border px-4 py-2 text-left">Due Date</th>
-              <th className="border px-4 py-2 text-left">Status</th>
-              <th className="border px-4 py-2 text-left">Edit</th>
-              <th className="border px-4 py-2 text-left">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredTasks.length === 0 ? (
-              <tr>
-                <td colSpan="6" className="text-center py-4 text-gray-500">
-                  No tasks found
-                </td>
-              </tr>
-            ) : (
-              filteredTasks.map((task) => (
-                <tr key={task.id} className="hover:bg-gray-50">
-                  <td className="border px-4 py-2">{task.title}</td>
-                  <td className="border px-4 py-2">{task.description}</td>
-                  <td className="border px-4 py-2">{task.dueDate}</td>
-                  <td className="border px-4 py-2">
-                    <span
-                      className={`px-2 py-1 rounded-full text-sm ${
-                        task.status === "Completed"
-                          ? "bg-green-100 text-green-800"
-                          : "bg-yellow-100 text-yellow-800"
-                      }`}
-                    >
-                      {task.status}
-                    </span>
-                  </td>
-                  <td className="border px-4 py-2">
-                    <button
-                      onClick={() => handleEdit(task.id)}
-                      className="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-600 transition"
-                    >
-                      Edit
-                    </button>
-                  </td>
-                  <td className="border px-4 py-2">
-                    <button
-                      onClick={() => handleDelete(task.id)}
-                      className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+      
+      {filteredTasks.length === 0 ? (
+        <div className="text-center py-8 text-gray-500">No tasks found</div>
+      ) : (
+        <div className="space-y-4">
+          {filteredTasks.map((task) => (
+            <div
+              key={task.id}
+              className="bg-white rounded-xl shadow-md p-6 flex flex-col md:flex-row justify-between items-start md:items-center"
+            >
+              <div className="mb-4 md:mb-0">
+                <h2 className="text-xl font-semibold text-gray-800">
+                  {task.title}
+                </h2>
+                <p className="text-gray-600">{task.description}</p>
+                <p className="text-sm text-gray-500 mt-1">
+                  Due: <span className="font-medium">{task.dueDate}</span>
+                </p>
+                <p className="text-sm mt-1">
+                  Status:{" "}
+                  <span
+                    className={`px-2 py-1 rounded-full text-sm ${
+                      task.status === "Completed"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                    }`}
+                  >
+                    {task.status}
+                  </span>
+                </p>
+              </div>
+
+              <div className="flex gap-2 w-full md:w-auto">
+                <button
+                  onClick={() => handleEdit(task.id)}
+                  className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition w-full md:w-auto cursor-pointer"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(task.id)}
+                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-300 transition w-full md:w-auto cursor-pointer"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
