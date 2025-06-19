@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTasks, saveTasks } from "../data";
+import { getTasks, deleteTask } from "../data";
 
 const List = () => {
   const [tasks, setTasks] = useState([]);
@@ -10,20 +10,24 @@ const List = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedTasks = getTasks();
-    const tasksWithStatus = storedTasks.map((task) => ({
-      ...task,
-      status: task.status || "Pending",
-    }));
-    setTasks(tasksWithStatus);
+    const fetchData = async () => {
+      const storedTasks = await getTasks();
+      setTasks(
+        storedTasks.map((task) => ({
+          ...task,
+          status: task.status || "Pending",
+        }))
+      );
+    };
+    fetchData();
   }, []);
 
   const handleAddTask = () => navigate("/add");
   const handleEdit = (id) => navigate(`/edit/${id}`);
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
+    await deleteTask(id);
     const updatedTasks = tasks.filter((task) => task.id !== id);
     setTasks(updatedTasks);
-    saveTasks(updatedTasks);
   };
 
   const filteredTasks = tasks.filter((task) => {
@@ -71,7 +75,6 @@ const List = () => {
         </select>
       </div>
 
-      
       {filteredTasks.length === 0 ? (
         <div className="text-center py-8 text-gray-500">No tasks found</div>
       ) : (
